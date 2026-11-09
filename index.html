@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#183b35"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><title>Jim Avenue | Fashion Store</title>
+<style>
+:root{--green:#183b35;--red:#e31d25;--gold:#c59a5b;--cream:#f7f5f0;--ink:#172522}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+header{background:white;color:var(--green);padding:15px 16px;position:sticky;top:0;z-index:2;box-shadow:0 2px 10px #0001}
+.brand{font-weight:950;letter-spacing:2px;font-size:25px}.brand span{color:var(--red)}.tag{font-size:11px;color:#66716b}
+.hero{margin:12px;border-radius:17px;overflow:hidden;background:#173b2e}.hero img{width:100%;display:block;max-height:240px;object-fit:cover}
+main{padding:0 12px 100px}.section-title{font-size:20px;font-weight:850;margin:22px 2px 12px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.cat{background:white;border-radius:13px;padding:10px 4px;text-align:center;font-weight:700;font-size:12px}.cat b{display:block;font-size:25px;margin-bottom:3px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.product{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 10px #13251c0d}.product img{width:100%;height:145px;object-fit:cover;display:block;background:#e9e9e9}
+.product-info{padding:10px}.product h3{font-size:14px;margin:0 0 4px}.category{font-size:11px;color:#69746e}.price{font-weight:900;color:var(--red);margin:7px 0}.old{font-size:11px;color:#87918b;text-decoration:line-through;margin-left:5px}
+button{border:0;border-radius:10px;padding:10px 12px;font-weight:750;cursor:pointer}.add{background:var(--red);color:white;width:100%}
+.quantity{display:flex;align-items:center;justify-content:space-between;gap:8px}.quantity button{background:#e8eee9;color:var(--green);min-width:34px}
+.panel{background:white;padding:15px;border-radius:15px;margin-top:14px}
+input,textarea{width:100%;padding:12px;border:1px solid #d6ddd8;border-radius:10px;margin:6px 0 12px;font:inherit}
+label{font-size:13px;font-weight:700}.primary{background:var(--green);color:white;width:100%;padding:14px}
+.total{font-size:19px;font-weight:900;display:flex;justify-content:space-between;margin:12px 0}
+nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:8px 5px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -3px 15px #0001;z-index:3}
+nav button{background:transparent;color:#42524b;flex:1;font-size:12px}nav button.active{color:var(--red);background:#fff0f0}
+.empty{color:#65716a;text-align:center;padding:20px}footer{text-align:center;color:#758078;font-size:12px;padding:20px}.hidden{display:none}
+.trust{display:flex;justify-content:space-around;gap:5px;background:white;border-radius:13px;padding:13px 5px;margin-top:16px;font-size:11px;font-weight:700;text-align:center}
+.wa{display:block;text-align:center;background:#119b45;color:white;padding:14px;border-radius:14px;text-decoration:none;font-weight:800;margin-top:12px}
+</style></head><body>
+<header><div class="brand">Jim <span>Avenue</span></div><div class="tag">WEAR YOUR STYLE · আপনার স্টাইল, আপনার পছন্দ</div></header>
+<section class="hero"><img src="hero.jpg" alt="Jim Avenue fashion collection"></section>
+<main>
+<section id="shop">
+<div class="section-title">ক্যাটাগরি</div>
+<div class="categories"><div class="cat"><b>👕</b>টি-শার্ট</div><div class="cat"><b>👔</b>শার্ট</div><div class="cat"><b>👖</b>প্যান্ট</div><div class="cat"><b>🧥</b>হুডি</div></div>
+<div class="section-title">জনপ্রিয় কালেকশন</div><div class="grid" id="products"></div>
+<div class="trust"><span>🛡️ নিরাপদ শপিং</span><span>🚚 দ্রুত ডেলিভারি</span><span>🎧 সাপোর্ট</span></div>
+<a class="wa" href="https://wa.me/8801914573092">WhatsApp: 01914573092</a>
+</section>
+<section id="cart" class="hidden"><div class="section-title">আপনার কার্ট</div><div class="panel" id="cartItems"></div></section>
+<section id="checkout" class="hidden"><div class="section-title">অর্ডার তথ্য</div><div class="panel">
+<div id="checkoutSummary"></div><label for="customer">আপনার নাম</label><input id="customer" placeholder="নাম লিখুন">
+<label for="phone">মোবাইল নম্বর</label><input id="phone" type="tel" placeholder="01XXXXXXXXX">
+<label for="address">সম্পূর্ণ ডেলিভারি ঠিকানা</label><textarea id="address" rows="3" placeholder="বাসা, এলাকা, জেলা"></textarea>
+<label for="note">অতিরিক্ত তথ্য / সাইজ / রং</label><textarea id="note" rows="2" placeholder="আপনার নির্দেশনা"></textarea>
+<button class="primary" onclick="sendOrder()">WhatsApp-এ অর্ডার পাঠান</button><p class="category">WhatsApp-এ পাঠানোর আগে অর্ডারের তথ্য যাচাই করুন।</p>
+</div></section><footer>© Jim Avenue — Fashion for every day</footer></main>
+<nav><button id="navShop" class="active" onclick="showTab('shop')">⌂<br>শপ</button><button id="navCart" onclick="showTab('cart')">🛒<br>কার্ট <span id="cartCount">0</span></button><button id="navCheckout" onclick="showTab('checkout')">✓<br>অর্ডার</button></nav>
+<script>
+const WHATSAPP="8801914573092";
+const products=[
+{id:1,name:"Brooklyn T-Shirt",cat:"টি-শার্ট",price:299,old:499,img:"tshirt.jpg",desc:"ক্যাজুয়াল কটন টি-শার্ট"},
+{id:2,name:"Classic Green Shirt",cat:"শার্ট",price:649,old:899,img:"shirt.jpg",desc:"স্মার্ট ক্যাজুয়াল শার্ট"},
+{id:3,name:"Cargo Pant",cat:"প্যান্ট",price:799,old:1099,img:"cargo.jpg",desc:"আরামদায়ক কার্গো প্যান্ট"},
+{id:4,name:"Premium Polo",cat:"পোলো শার্ট",price:599,old:799,img:"tshirt.jpg",desc:"দৈনন্দিন ব্যবহারের জন্য"},
+{id:5,name:"Everyday Shirt",cat:"শার্ট",price:699,old:950,img:"shirt.jpg",desc:"স্টাইলিশ শার্ট"},
+{id:6,name:"Casual Trouser",cat:"প্যান্ট",price:850,old:1100,img:"cargo.jpg",desc:"আরামদায়ক ফিট"}
+];
+const cart={};const money=n=>"৳"+n.toLocaleString("en-BD");
+function renderProducts(){document.getElementById("products").innerHTML=products.map(p=>`<article class="product"><img src="${p.img}" alt="${p.name}"><div class="product-info"><h3>${p.name}</h3><div class="category">${p.cat} · ${p.desc}</div><div class="price">${money(p.price)} <span class="old">${money(p.old)}</span></div><button class="add" onclick="add(${p.id})">🛒 কার্টে যোগ করুন</button></div></article>`).join("")}
+function add(id){cart[id]=(cart[id]||0)+1;renderCart();document.getElementById("cartCount").textContent=count()}
+function change(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart();document.getElementById("cartCount").textContent=count()}
+function count(){return Object.values(cart).reduce((a,b)=>a+b,0)}
+function total(){return products.reduce((s,p)=>s+p.price*(cart[p.id]||0),0)}
+function renderCart(){const chosen=products.filter(p=>cart[p.id]);const el=document.getElementById("cartItems");if(!chosen.length){el.innerHTML='<div class="empty">আপনার কার্ট খালি। শপ থেকে পণ্য যোগ করুন।</div>';document.getElementById("checkoutSummary").textContent="কার্টে কোনো পণ্য নেই।";return}
+el.innerHTML=chosen.map(p=>`<div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #edf0ed"><img src="${p.img}" style="width:55px;height:55px;object-fit:cover;border-radius:8px"><div style="flex:1"><b>${p.name}</b><div class="category">${money(p.price)} × ${cart[p.id]}</div></div><div class="quantity"><button onclick="change(${p.id},-1)">−</button><b>${cart[p.id]}</b><button onclick="change(${p.id},1)">+</button></div></div>`).join("")+`<div class="total"><span>মোট</span><span>${money(total())}</span></div><button class="primary" onclick="showTab('checkout')">অর্ডার সম্পন্ন করুন</button>`;
+document.getElementById("checkoutSummary").innerHTML=`মোট পণ্য: <b>${count()} টি</b><div class="total"><span>সর্বমোট</span><span>${money(total())}</span></div>`}
+function showTab(tab){["shop","cart","checkout"].forEach(t=>document.getElementById(t).classList.toggle("hidden",t!==tab));["navShop","navCart","navCheckout"].forEach((id,i)=>document.getElementById(id).classList.toggle("active",["shop","cart","checkout"][i]===tab));if(tab!=="shop")renderCart();window.scrollTo({top:0,behavior:"smooth"})}
+function sendOrder(){if(!count()){alert("আগে কার্টে পণ্য যোগ করুন।");return}const name=document.getElementById("customer").value.trim(),phone=document.getElementById("phone").value.trim(),address=document.getElementById("address").value.trim(),note=document.getElementById("note").value.trim();if(!name||!phone||!address){alert("নাম, মোবাইল নম্বর ও ঠিকানা পূরণ করুন।");return}const lines=products.filter(p=>cart[p.id]).map(p=>`${p.name} × ${cart[p.id]} = ${money(p.price*cart[p.id])}`).join("\n");const msg=`Jim Avenue অর্ডার\nনাম: ${name}\nফোন: ${phone}\nঠিকানা: ${address}\n\n${lines}\n\nমোট: ${money(total())}\nনোট: ${note||"নেই"}`;location.href=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`}
+renderProducts();renderCart();
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(() => {}));
+}
+</script></body></html>
